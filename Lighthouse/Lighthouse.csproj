@@ -8,6 +8,46 @@
         <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
     </PropertyGroup>
 
+    <ItemGroup Condition="Exists('libs/libHarfBuzzSharp.lib')">
+        <NativeLibrary Include="libs/libHarfBuzzSharp.lib" Condition="$(RuntimeIdentifier.StartsWith('win'))" />
+        <DirectPInvoke Include="libHarfBuzzSharp" />
+        <BundledAssemblies Include="libHarfBuzzSharp.dll" />
+    </ItemGroup>
+    
+    <ItemGroup Condition="Exists('libs/libSkiaSharp.lib')">
+        <NativeLibrary Include="libs/libSkiaSharp.lib" Condition="$(RuntimeIdentifier.StartsWith('win'))" />
+        <DirectPInvoke Include="libSkiaSharp" />
+        <BundledAssemblies Include="libSkiaSharp.dll" />
+    </ItemGroup>
+
+    <ItemGroup Condition="Exists('libs/av_libglesv2.lib')">
+        <NativeLibrary Include="libs/av_libglesv2.lib" Condition="$(RuntimeIdentifier.StartsWith('win'))" />
+        <DirectPInvoke Include="av_libglesv2" />
+        <BundledAssemblies Include="av_libglesv2.dll" />
+    </ItemGroup>
+
+    <PropertyGroup Condition="'$(Configuration)'=='Release'">
+        <PublishAot>true</PublishAot>
+        <DebugSymbols>false</DebugSymbols>
+        <DebugType>none</DebugType>
+        <PublishReadyToRun>true</PublishReadyToRun>
+        <IlcOptimizationPreference>Size</IlcOptimizationPreference>
+        <AutoreleasePoolSupport>false</AutoreleasePoolSupport>
+        <DebuggerSupport>false</DebuggerSupport>
+        <EnableUnsafeBinaryFormatterSerialization>false</EnableUnsafeBinaryFormatterSerialization>
+        <EnableUnsafeUTF7Encoding>false</EnableUnsafeUTF7Encoding>
+        <EventSourceSupport>false</EventSourceSupport>
+        <HttpActivityPropagationSupport>false</HttpActivityPropagationSupport>
+        <MetadataUpdaterSupport>false</MetadataUpdaterSupport>
+        <UseSystemResourceKeys>true</UseSystemResourceKeys>
+        <IlcGenerateStackTraceData>false</IlcGenerateStackTraceData>
+        <IlcTrimMetadata>true</IlcTrimMetadata>
+        <!-- <IlcDisableReflection>true</IlcDisableReflection> -->
+        <IlcFoldIdenticalMethodBodies>true</IlcFoldIdenticalMethodBodies>
+        <IlcGenerateCompleteTypeMetadata>false</IlcGenerateCompleteTypeMetadata>
+        <IlcDisableUnhandledExceptionExperience>true</IlcDisableUnhandledExceptionExperience>
+    </PropertyGroup>
+    
     <ItemGroup>
         <PackageReference Include="Avalonia" Version="11.2.5"/>
         <PackageReference Include="Avalonia.Desktop" Version="11.2.5"/>
@@ -21,4 +61,10 @@
         </PackageReference>
         <PackageReference Include="Plugin.BLE" Version="3.1.0" />
     </ItemGroup>
+    
+    <Target Name="OnPublish" AfterTargets="Publish">
+        <Delete Files="$(PublishDir)%(BundledAssemblies.Identity)" />
+        <Delete Files="$(PublishDir)$(TargetName).pdb" />
+    </Target>
+    
 </Project>

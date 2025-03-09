@@ -1,0 +1,6 @@
+﻿<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Publish" type="DotNetFolderPublish" factoryName="Publish to folder">
+    <riderPublish configuration="Release" platform="Any CPU" ready_to_run="true" runtime="win-x64" self_contained="true" target_folder="$PROJECT_DIR$/Lighthouse/bin/Release/net8.0-windows10.0.19041/win-x64/publish" target_framework="net8.0-windows10.0.19041" trim_unused_assemblies="true" uuid_high="6751188908422612056" uuid_low="-8222161878359110732" />
+    <method v="2" />
+  </configuration>
+</component>
