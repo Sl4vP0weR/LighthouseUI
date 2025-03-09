@@ -1,0 +1,38 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:lighthouse="clr-namespace:Lighthouse"
+        mc:Ignorable="d"
+        MinHeight="200"
+        MinWidth="450"
+        SizeToContent="WidthAndHeight"
+        x:Class="Lighthouse.MainWindow"
+        x:DataType="lighthouse:MainWindow"
+        Title="Lighthouse">
+    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <StackPanel VerticalAlignment="Center" MaxWidth="100" Spacing="1">
+            
+            <TextBlock Name="DiscoveryLabel" IsVisible="false">Discovery...</TextBlock>
+            
+            <Button Width="85" HorizontalContentAlignment="Center" Content="Discover" Click="Discover_OnClick"
+                    Margin="0 0 0 10">
+            </Button>
+
+            <Button Width="85" HorizontalContentAlignment="Center" Content="Enable" Click="Enable_OnClick"></Button>
+            <Button Width="85" HorizontalContentAlignment="Center" Content="Disable" Click="Disable_OnClick"></Button>
+            <Button Width="85" HorizontalContentAlignment="Center" Content="Standby" Click="Standby_OnClick"></Button>
+        </StackPanel>
+        <ListBox x:Name="Devices" SelectionMode="Multiple,Toggle" Margin="5">
+            <ListBox.ItemTemplate>
+                <DataTemplate x:DataType="lighthouse:LighthouseDeviceDescriptor">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Width="120" Text="{Binding Name}" Margin="0,0,10,0" />
+                        <TextBlock Text="{Binding Identifier}" Margin="0,0,10,0" />
+                        <TextBlock Text="{Binding State}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </StackPanel>
+</Window>
